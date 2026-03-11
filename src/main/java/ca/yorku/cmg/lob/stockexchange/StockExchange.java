@@ -189,13 +189,13 @@ public class StockExchange {
 	    
 					    if (agent != null) {
                           this.agents.add(agent);
-                        }
-						else {
+                        } else {
 	                    System.err.println("Skipping malformed line (two few attributes): " + line);
-	                }
+	                   }
 	            }
 	        } catch (IOException e) {
 	            e.printStackTrace();
+		    }
 		}
 		
 	    /**
