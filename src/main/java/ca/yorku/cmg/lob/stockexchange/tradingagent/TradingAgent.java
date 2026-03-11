@@ -32,4 +32,8 @@ public abstract class TradingAgent {
     public void addPosition(String ticker, Integer quantity) {
         this.positions.put(ticker, quantity);
     }
+
+    public void timeAdvancedTo(int time) {
+        
+    }
 }
