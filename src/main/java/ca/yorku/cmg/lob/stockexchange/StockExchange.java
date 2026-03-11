@@ -188,8 +188,9 @@ public class StockExchange {
 	                    
 	    
 					    if (agent != null) {
-                          this.agents.add(agent);
-                        } else {
+                          this.traders.add(agent);
+                        } 
+					}else {
 	                    System.err.println("Skipping malformed line (two few attributes): " + line);
 	                   }
 	            }
