@@ -186,10 +186,11 @@ public class StockExchange {
                         TradingAgentFactory factory = new TradingAgentFactory();
                         TradingAgent agent = factory.createAgent(traderType, tradingStyle, t, this, newsDesk);
 	                    
-	                } 
+	    
 					    if (agent != null) {
-                       this.agents.add(agent);
-                        }else {
+                          this.agents.add(agent);
+                        }
+						else {
 	                    System.err.println("Skipping malformed line (two few attributes): " + line);
 	                }
 	            }
