@@ -12,9 +12,9 @@ public class ConservativeStrategy implements ITradingStrategy {
     public void actOnEvent(Event e, int pos, int price, Trader t, StockExchange exc) {
         IOrder newOrder = null;
         if (e instanceof GoodNews) {
-            newOrder = new Bid(t, e.getSecurity(), (int)Math.round(price * 1.01), (int)Math.round(pos * 0.1), e.getTime());
+            newOrder = new Bid(t, e.getSecrity(), (int)Math.round(price * 1.01), (int)Math.round(pos * 0.1), e.getTime());
         } else if (e instanceof BadNews) {
-            newOrder = new Ask(t, e.getSecurity(), (int)Math.round(price * 0.99), (int)Math.round(pos * 0.2), e.getTime());
+            newOrder = new Ask(t, e.getSecrity(), (int)Math.round(price * 0.99), (int)Math.round(pos * 0.2), e.getTime());
         }
         if (newOrder != null) exc.submitOrder(newOrder, e.getTime());
     }
