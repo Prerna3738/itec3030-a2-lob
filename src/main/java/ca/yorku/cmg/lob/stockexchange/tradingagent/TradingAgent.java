@@ -23,9 +23,9 @@ public abstract class TradingAgent {
     }
 
     public void onEvent(Event e, int price) {
-        int currentPos = positions.getOrDefault(e.getSecrity(), 0);
+        int currentPos = positions.getOrDefault(e.getSecurity(), 0);
         if (strategy != null) {
-            strategy.actOnEvent(e, currentPos, price, this.t, this.exc);
+            strategy.actOnEvent(e, currentPos, price, this.trader, this.exc);
         }
     }
 

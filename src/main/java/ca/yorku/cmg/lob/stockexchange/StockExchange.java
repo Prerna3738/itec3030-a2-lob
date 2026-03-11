@@ -187,9 +187,9 @@ public class StockExchange {
                         agent = factory.createAgent(traderType, tradingStyle, t, this, nb);
 	                    
 	                } 
-					if (agent != null) {
-    this.agents.add(agent);
-}else {
+					    if (agent != null) {
+                       this.agents.add(agent);
+                        }else {
 	                    System.err.println("Skipping malformed line (two few attributes): " + line);
 	                }
 	            }
