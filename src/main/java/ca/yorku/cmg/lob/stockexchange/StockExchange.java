@@ -184,7 +184,7 @@ public class StockExchange {
 	                    }
 	                    // We now delegate the creation to our Factory
                         TradingAgentFactory factory = new TradingAgentFactory();
-                        TradingAgent agent = factory.createAgent(traderType, tradingStyle, t, this, nb);
+                        TradingAgent agent = factory.createAgent(traderType, tradingStyle, t, this, newsDesk);
 	                    
 	                } 
 					    if (agent != null) {
