@@ -40,7 +40,8 @@ public class NewsBoard {
     	String delimiter = ","; // Assuming the CSV is comma-separated
 
     	try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-    		while ((line = br.readLine()) != null) {
+    		br.readLine();
+			while ((line = br.readLine()) != null) {
     			String[] values = line.split(delimiter);
 
     			// Ensure the line has exactly two columns

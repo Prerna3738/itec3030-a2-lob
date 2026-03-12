@@ -94,6 +94,7 @@ public class StockExchange {
 			String delimiter = ",";
 
 			try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+				br.readLine();
 				while ((line = br.readLine()) != null) {
 					String[] parts = line.split(delimiter);
 
@@ -127,7 +128,8 @@ public class StockExchange {
 	     */
 		public void readSecurityListfromFile(String path) {
 		    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-	            String line;
+	            br.readLine();
+				String line;
 	            boolean isFirstLine = true; // Skip header
 
 	            while ((line = br.readLine()) != null) {
@@ -156,7 +158,8 @@ public class StockExchange {
 	     */
 		public void readAccountsListFromFile(String path) {
 		    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-	            String line;
+	            br.readLine();
+				String line;
 	            boolean isFirstLine = true; // Skip header
 
 	            while ((line = br.readLine()) != null) {
@@ -206,6 +209,7 @@ public class StockExchange {
 	     */
 		public void readInitialPositionsFromFile(String path) {
 		    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+				br.readLine();
 	            String line;
 	            boolean isFirstLine = true; // Skip header
 
