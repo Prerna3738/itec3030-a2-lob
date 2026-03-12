@@ -1,4 +1,4 @@
-package ca.yorku.cmg.lob.stockexchange.strategy;
+package ca.yorku.cmg.lob.stockexchange.tradingagent;
 
 import ca.yorku.cmg.lob.orderbook.Ask;
 import ca.yorku.cmg.lob.orderbook.Bid;
