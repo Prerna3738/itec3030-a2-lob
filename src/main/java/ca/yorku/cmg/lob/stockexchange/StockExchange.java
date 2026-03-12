@@ -94,8 +94,11 @@ public class StockExchange {
 			String delimiter = ",";
 
 			try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-				br.readLine();
 				while ((line = br.readLine()) != null) {
+					String[] parts = line.split(delimiter);
+                   if(line.startsWith("code")) || line.contains("price")){
+					 continue;
+
 					String[] parts = line.split(delimiter);
 
 					// Ensure there are exactly 3 columns
@@ -119,7 +122,7 @@ public class StockExchange {
 			}
 
 		}
-
+		
 		
 	    /**
 	     * Reads the security list from a file and populates the exchange.

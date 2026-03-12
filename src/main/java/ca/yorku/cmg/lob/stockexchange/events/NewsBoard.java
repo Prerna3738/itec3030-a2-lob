@@ -40,9 +40,8 @@ public class NewsBoard {
     	String delimiter = ","; // Assuming the CSV is comma-separated
 
     	try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-    		br.readLine();
 			while ((line = br.readLine()) != null) {
-				if (line.contains("Ticker")) || line.contains("EventType")){
+				if (line.startsWith("Time")) || line.contains("EventType")){
 					continue;
 				}
     			String[] values = line.split(delimiter);
@@ -120,9 +119,11 @@ public class NewsBoard {
 	 * Stub for the observer part. Runs the entire queue of events and sends notifications to registered trading agents.   
 	 */
 	public void runEventsList() {
+		while (!eventQueue.isEmpty()) {
+        Event e = eventQueue.poll();
 
 	}
-	
+	}
 	
 	
 }
