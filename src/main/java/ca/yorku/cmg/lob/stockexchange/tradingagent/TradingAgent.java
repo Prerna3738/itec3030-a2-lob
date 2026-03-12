@@ -1,39 +1,57 @@
 package ca.yorku.cmg.lob.stockexchange.tradingagent;
 
-import java.util.HashMap;
-import java.util.Map;
 import ca.yorku.cmg.lob.stockexchange.StockExchange;
 import ca.yorku.cmg.lob.stockexchange.events.Event;
 import ca.yorku.cmg.lob.stockexchange.events.NewsBoard;
 import ca.yorku.cmg.lob.trader.Trader;
-import ca.yorku.cmg.lob.stockexchange.strategy.ITradingStrategy;
+import ca.yorku.cmg.lob.tradestandards.IOrder;
 
 public abstract class TradingAgent {
+
     protected Trader t;
     protected StockExchange exc;
-    protected NewsBoard nb;
-    protected ITradingStrategy strategy; 
-    protected Map<String, Integer> positions = new HashMap<>();
+    protected NewsBoard news;
+    protected ITradingStrategy strategy;
 
-    public TradingAgent(Trader t, StockExchange e, NewsBoard n, ITradingStrategy strategy) {
-        this.t = t;
-        this.exc = e;
-        this.nb = n;
-        this.strategy = strategy;
-    }
-
-    public void onEvent(Event e, int price) {
-        int currentPos = positions.getOrDefault(e.getSecrity().getTicker(), 0);
-        if (strategy != null) {
-            strategy.actOnEvent(e, currentPos, price, this.t, this.exc);
+    public TradingAgent(Trader t, StockExchange e, NewsBoard n, ITradingStrategy s) {
+        this.t        = t;
+        this.exc      = e;
+        this.news     = n;
+        this.strategy = s;
+        if (s instanceof ConservativeStrategy) {
+            ((ConservativeStrategy) s).setTrader(t);
+        } else if (s instanceof AggressiveStrategy) {
+            ((AggressiveStrategy) s).setTrader(t);
         }
     }
 
-    public void addPosition(String ticker, Integer quantity) {
-        this.positions.put(ticker, quantity);
+    public void timeAdvancedTo(long time) {
+        pollForEvents(time);
     }
 
-    public void timeAdvancedTo(int time) {
-        
+    private void pollForEvents(long time) {
+        Event e = news.getEventAt(time);
+        if (e != null) {
+            examineEvent(e);
+        }
+    }
+
+    private void examineEvent(Event e) {
+        int pos = exc.getAccounts()
+                     .getTraderAccount(t)
+                     .getPosition(e.getSecrity().getTicker());
+        if (pos > 0) {
+            int price = exc.getPrice(e.getSecrity().getTicker());
+            strategy.actOnEvent(e, pos, price);
+            IOrder order = null;
+            if (strategy instanceof ConservativeStrategy) {
+                order = ((ConservativeStrategy) strategy).getLastOrder();
+            } else if (strategy instanceof AggressiveStrategy) {
+                order = ((AggressiveStrategy) strategy).getLastOrder();
+            }
+            if (order != null) {
+                exc.submitOrder(order, e.getTime());
+            }
+        }
     }
 }
