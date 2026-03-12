@@ -42,6 +42,9 @@ public class NewsBoard {
     	try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
     		br.readLine();
 			while ((line = br.readLine()) != null) {
+				if (line.contains("Ticker")) || line.contains("EventType")){
+					continue;
+				}
     			String[] values = line.split(delimiter);
 
     			// Ensure the line has exactly two columns
