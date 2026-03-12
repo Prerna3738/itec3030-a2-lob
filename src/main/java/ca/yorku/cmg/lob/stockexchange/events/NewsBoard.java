@@ -41,7 +41,7 @@ public class NewsBoard {
 
     	try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			while ((line = br.readLine()) != null) {
-				if (line.startsWith("Time")) || line.contains("EventType")){
+				if (line.toLowerCase().contains("ticker") || line.toLowerCase().contains("eventtype")){
 					continue;
 				}
     			String[] values = line.split(delimiter);
@@ -119,11 +119,17 @@ public class NewsBoard {
 	 * Stub for the observer part. Runs the entire queue of events and sends notifications to registered trading agents.   
 	 */
 	public void runEventsList() {
-		while (!eventQueue.isEmpty()) {
+    // While there are events in the priority queue
+    while (!eventQueue.isEmpty()) {
+        // Remove the next event (ordered by time)
         Event e = eventQueue.poll();
-
-	}
-	}
-	
-	
+        
+        // Notify all registered observers/traders about this event
+        // Assuming you have a list of observers called 'traders'
+        for (TradingAgent agent : traders) {
+            agent.update(e); 
+        }
+    }
 }
+	
+

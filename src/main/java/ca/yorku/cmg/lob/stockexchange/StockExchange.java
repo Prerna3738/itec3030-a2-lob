@@ -96,9 +96,9 @@ public class StockExchange {
 			try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 				while ((line = br.readLine()) != null) {
 					String[] parts = line.split(delimiter);
-                   if(line.startsWith("code")) || line.contains("price")){
+                   if(line.isEmpty() || line.toLowerCase().contains("price") || line.toLowerCase().contains("description")){
 					 continue;
-
+				}
 					String[] parts = line.split(delimiter);
 
 					// Ensure there are exactly 3 columns
